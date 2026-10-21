@@ -44,7 +44,7 @@
         <button mat-icon-button color="primary" matTooltip="Editar" [routerLink]="['editar', h.id]">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" matTooltip="Eliminar" (click)="h.id
+        <button mat-icon-button color="warn" matTooltip="Eliminar" *ngIf="isAdmin" (click)="h.id
          && eliminar(h.id)">
           <mat-icon>delete</mat-icon>
         </button>

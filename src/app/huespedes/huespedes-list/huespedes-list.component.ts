@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HuespedesService, HuespedResponse } from '../huespedes.service';
-
+import { AuthService } from '../../core/services/auth.service';
+import { ROLES } from '../../core/models/usuario.model';
 @Component({
   selector: 'app-huespedes-list',
   standalone: false,
@@ -10,10 +11,12 @@ import { HuespedesService, HuespedResponse } from '../huespedes.service';
 export class HuespedListComponent implements OnInit {
   huespedes: HuespedResponse[] = [];
   cargando = false;
+  isAdmin = false;
 
-  constructor(private huespedesService: HuespedesService) {}
+  constructor(private huespedesService: HuespedesService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.hasRole(ROLES[0]);
     this.cargarHuespedes();
   }
 

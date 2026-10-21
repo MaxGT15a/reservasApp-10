@@ -3,41 +3,114 @@
 </mat-toolbar>
 
 <div class="container" style="padding: 20px; max-width: 600px;">
+  
+  <!-- Alertas de error o éxito idénticas a reservas -->
+  <div *ngIf="mensajeError" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 4px; margin-bottom: 15px;">
+    {{ mensajeError }}
+  </div>
+  <div *ngIf="mensajeExito" style="background-color: #d4edda; color: #155724; padding: 12px; border-radius: 4px; margin-bottom: 15px;">
+    {{ mensajeExito }}
+  </div>
+
   <form [formGroup]="huespedForm" (ngSubmit)="guardar()" style="display: flex; flex-direction: column; gap: 15px;">
     
     <mat-form-field appearance="outline">
       <mat-label>Nombre</mat-label>
       <input matInput formControlName="nombre">
+      <mat-error *ngIf="huespedForm.get('nombre')?.hasError('required')">
+        El nombre es requerido.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('nombre')?.hasError('maxlength')">
+        Máximo 50 caracteres permitidos.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('nombre')?.hasError('minlength')">
+        El nombre debe tener al menos 2 carácteres.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Apellido</mat-label>
       <input matInput formControlName="apellido">
+      <mat-error *ngIf="huespedForm.get('apellido')?.hasError('required')">
+        El apellido es requerido.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('apellido')?.hasError('maxlength')">
+        Máximo 50 caracteres permitidos.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('nombre')?.hasError('minlength')">
+        El apellido debe tener al menos 2 carácteres.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput type="email" formControlName="email">
+      <mat-error *ngIf="huespedForm.get('email')?.hasError('required')">
+        El email es requerido.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('email')?.hasError('email')">
+        Ingresa un correo electrónico válido.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('email')?.hasError('maxlength')">
+        Máximo 150 caracteres permitidos.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Teléfono</mat-label>
       <input matInput formControlName="telefono">
+      <mat-error *ngIf="huespedForm.get('telefono')?.hasError('required')">
+        El teléfono es requerido.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('telefono')?.hasError('maxlength')">
+        El teléfono no puede exceder los 10 dígitos.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('nombre')?.hasError('minlength')">
+        El teléfono debe de tener 10 dígitos.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('nombre')?.hasError('minlength')">
+        El teléfono debe de tener 10 dígitos.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('telefono')?.hasError('pattern')">
+        El teléfono solo debe contener números.
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Tipo de Documento</mat-label>
-      <input matInput formControlName="tipoDocumento" placeholder="INE, Pasaporte...">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Documento</mat-label>
+      <mat-select formControlName="tipoDocumento">
+        <mat-option *ngFor="let tipo of tiposDocumentos" [value]="tipo.value">
+          {{ tipo.label }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="huespedForm.get('tipoDocumento')?.hasError('required')">
+        El documento de identidad es requerido brody 🙄
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Número de Documento</mat-label>
       <input matInput formControlName="numeroDocumento">
+      <mat-error *ngIf="huespedForm.get('numeroDocumento')?.hasError('required')">
+        El número de documento es requerido.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('numeroDocumento')?.hasError('maxlength')">
+        Máximo 20 caracteres permitidos.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('telefono')?.hasError('pattern')">
+        El número debe números contenertener solo.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Nacionalidad</mat-label>
       <input matInput formControlName="nacionalidad">
+      <mat-error *ngIf="huespedForm.get('nacionalidad')?.hasError('required')">
+        La nacionalidad es requerida.
+      </mat-error>
+      <mat-error *ngIf="huespedForm.get('nacionalidad')?.hasError('maxlength')">
+        Máximo 100 caracteres permitidos.
+      </mat-error>
     </mat-form-field>
 
     <div style="display: flex; gap: 10px;">
