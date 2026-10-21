@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface DatosHabitacion {
@@ -27,7 +27,7 @@ export interface HabitacionResponse {
   tipoHabitacion: string;
   precio: number;
   capacidad: number;
-  estado: string;
+  estadoHabitacion: string;
   estado_registro: string;
   fecha_creacion?: string;
   fecha_actualizacion?: string;
@@ -43,6 +43,12 @@ export class HabitacionesService {
 
   obtenerHabitaciones(): Observable<HabitacionResponse[]> {
     return this.http.get<HabitacionResponse[]>(this.apiUrl);
+  }
+
+  obtenerHabitacionesActivas(): Observable<HabitacionResponse[]> {
+    return this.obtenerHabitaciones().pipe(
+      map(habitaciones => habitaciones.filter(h => h.estadoHabitacion === "Lista para asignarse")) 
+    );
   }
 
   obtenerHabitacionPorId(id: number): Observable<HabitacionResponse> {
