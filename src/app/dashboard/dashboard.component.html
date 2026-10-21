@@ -4,44 +4,44 @@
 <div class="grid-cards">
 
   <!-- Reservaciones -->
-  <mat-card class="card-metrica deshabilitada">
+  <mat-card class="card-metrica">
     <mat-card-content>
       <mat-icon class="icono">calendar_month</mat-icon>
       <div>
-        <p class="numero">—</p>
+        <p class="numero">{{ cargando ? '—' : totalReservas }}</p>
         <p class="etiqueta">Reservaciones activas</p>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <span class="pronto">Próximamente</span>
+      <a mat-button color="primary" routerLink="/reservas">Ver habitaciones</a>
     </mat-card-actions>
   </mat-card>
 
   <!-- Habitaciones -->
-  <mat-card class="card-metrica deshabilitada">
+  <mat-card class="card-metrica">
     <mat-card-content>
       <mat-icon class="icono">bed</mat-icon>
       <div>
-        <p class="numero">—</p>
+        <p class="numero">{{ cargando ? '—' : totalHabitaciones }}</p>
         <p class="etiqueta">Habitaciones disponibles</p>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <span class="pronto">Próximamente</span>
+      <a mat-button color="primary" routerLink="/habitaciones">Ver habitaciones</a>
     </mat-card-actions>
   </mat-card>
 
   <!-- Huéspedes -->
-  <mat-card class="card-metrica deshabilitada">
+  <mat-card class="card-metrica">
     <mat-card-content>
       <mat-icon class="icono">people</mat-icon>
       <div>
-        <p class="numero">—</p>
+        <p class="numero">{{ cargando ? '—' : totalHuespedes }}</p>
         <p class="etiqueta">Huéspedes registrados</p>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <span class="pronto">Próximamente</span>
+      <a mat-button color="primary" routerLink="/huespedes">Ver huespedes</a>
     </mat-card-actions>
   </mat-card>
 
