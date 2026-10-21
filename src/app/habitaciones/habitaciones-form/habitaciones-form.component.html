@@ -1,0 +1,48 @@
+<mat-toolbar color="primary">
+  <span>{{ esEdicion ? 'Editar Habitación' : 'Registrar Nueva Habitación' }}</span>
+</mat-toolbar>
+
+<div class="container" style="padding: 20px; max-width: 600px;">
+  <form [formGroup]="habitacionForm" (ngSubmit)="guardar()" style="display: flex; flex-direction: column; gap: 15px;">
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Número de Habitación</mat-label>
+      <input matInput formControlName="numero">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Tipo de Habitación</mat-label>
+      <mat-select formControlName="tipoHabitacion">
+        <mat-option *ngFor="let tipo of tiposHabitacion" [value]="tipo.value">
+          {{ tipo.label }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="habitacionForm.get('tipoHabitacion')?.hasError('required')">
+        La categoría es requerida
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Precio por Noche</mat-label>
+      <input matInput type="number" formControlName="precio">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Capacidad (Personas)</mat-label>
+      <input matInput type="number" formControlName="capacidad">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="estado">
+        <mat-option *ngFor="let est of estados" [value]="est">{{ est }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div style="display: flex; gap: 10px;">
+      <button mat-raised-button color="primary" type="submit" [disabled]="habitacionForm.invalid">Guardar</button>
+      <button mat-button type="button" routerLink="/habitaciones">Cancelar</button>
+    </div>
+
+  </form>
+</div>

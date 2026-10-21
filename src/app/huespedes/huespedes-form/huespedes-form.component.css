@@ -1,0 +1,22 @@
+.container {
+  padding: 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.acciones-form {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
