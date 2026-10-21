@@ -1,0 +1,22 @@
+.container {
+  padding: 24px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+}
+
+table {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.sin-datos {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.54);
+  margin-top: 24px;
+  font-size: 16px;
+}

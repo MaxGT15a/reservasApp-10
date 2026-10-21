@@ -1,0 +1,72 @@
+<mat-toolbar color="primary">
+  <span>Catálogo de Habitaciones</span>
+  <span class="spacer" style="flex: 1 1 auto;"></span>
+  <button mat-raised-button color="accent" routerLink="nuevo">
+    <mat-icon>add</mat-icon> Nueva Habitación
+  </button>
+</mat-toolbar>
+
+<div class="container" style="padding: 20px;">
+  <div class="loading" *ngIf="cargando" style="display: flex; justify-content: center; margin: 20px 0;">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <table mat-table [dataSource]="habitaciones" *ngIf="!cargando" class="mat-elevation-z2" style="width: 100%;">
+    
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let hab"> {{ hab.id }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="numero">
+      <th mat-header-cell *matHeaderCellDef> Número </th>
+      <td mat-cell *matCellDef="let hab"> {{ hab.numero }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipo">
+      <th mat-header-cell *matHeaderCellDef> Tipo </th>
+      <td mat-cell *matCellDef="let hab"> {{ hab.tipoHabitacion }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="precio">
+      <th mat-header-cell *matHeaderCellDef> Precio por Noche </th>
+      <td mat-cell *matCellDef="let hab"> {{ hab.precio | currency }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="capacidad">
+      <th mat-header-cell *matHeaderCellDef> Capacidad </th>
+      <td mat-cell *matCellDef="let hab"> {{ hab.capacidad }} personas </td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let hab">
+        <span class="badge" [ngClass]="{
+          'text-success': hab.estadoHabitacion === 'DISPONIBLE',
+          'text-danger': hab.estadoHabitacion=== 'OCUPADA',
+          'text-warning': hab.estadoHabitacion=== 'LIMPIEZA',
+          'text-muted': hab.estadoHabitacion=== 'MANTENIMIENTO'
+        }" style="font-weight: bold;">{{ hab.estadoHabitacion }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let hab">
+        <button mat-icon-button color="primary" matTooltip="Editar" [routerLink]="['editar', hab.id]">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" matTooltip="Eliminar" (click)="hab.id && eliminar(hab.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id','numero', 'tipo', 'precio', 'capacidad', 'estado', 'acciones']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id','numero', 'tipo', 'precio', 'capacidad', 'estado', 'acciones'];"></tr>
+  </table>
+
+  <p *ngIf="!cargando && habitaciones.length === 0" class="sin-datos" style="text-align: center; margin-top: 20px;">
+    No hay habitaciones registradas.
+  </p>
+</div>
